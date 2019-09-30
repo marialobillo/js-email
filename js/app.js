@@ -3,6 +3,8 @@ const email = document.getElementById('email');
 const asunto = document.getElementById('asunto');
 const mensaje = document.getElementById('mensaje');
 const btnEnviar = document.getElementById('enviar');
+const formularioEnviar = document.getElmentById('enviar-mail');
+const resetBtn = document.getElementById('resetBtn');
 
 
 // event listener
@@ -19,6 +21,9 @@ function eventListeners(){
 
   // boton enviar
   btnEnviar.addEventListener('click', enviarEmail);
+
+  //
+  resetBtn.addEventListener('click', resetFormulario);
 
 }
 
@@ -49,8 +54,28 @@ function validarCampo(){
 
 // cuando se envia el correo
 function enviarEmail(e){
-  console.log('Mail Enviado');
+  const spinnerGif = document.querySelector('#spinner');
+  spinnerGif.style.display = 'block';
+
+  // Gif que envia email
+  const enviado = document.createElement('img');
+  enviado.src = 'img/mail.gif';
+  enviado.style.display = 'block';
+
+  // ocultar spinner y mostrar gif
+  setTimeout(function(){
+    spinnerGif.style.display = 'none';
+
+    document.querySelector('#loaders').appendChild(enviado);
+
+    setTimeout(function(){
+      enviado.remove();
+      formularioEnviar.reset();
+    }, 5000);
+  }, 3000);
+
   e.preventDefault();
+
 
 }
 
@@ -75,4 +100,9 @@ function validarEmail(campo){
     campo.style.borderBottomColor = 'red';
     campo.classList.add('error');
   }
+}
+
+function resetFormulario(e){
+  formularioEnviar.reset();
+  e.preventDefault();
 }
