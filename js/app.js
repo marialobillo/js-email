@@ -17,6 +17,9 @@ function eventListeners(){
   asunto.addEventListener('blur', validarCampo);
   mensaje.addEventListener('blur', validarCampo);
 
+  // boton enviar
+  btnEnviar.addEventListener('click', enviarEmail);
+
 }
 
 // functions
@@ -42,9 +45,16 @@ function validarCampo(){
       btnEnviar.disabled = false;
     }
   }
+}
+
+// cuando se envia el correo
+function enviarEmail(e){
+  console.log('Mail Enviado');
+  e.preventDefault();
 
 }
 
+// verifica la longitud del texto
 function validarLongitud(campo){
   if(campo.value.length > 0){
     campo.style.borderBottomColor = 'green';
@@ -57,6 +67,7 @@ function validarLongitud(campo){
 
 
 function validarEmail(campo){
+  const mensaje = campo.value;
   if(mensaje.indexOf('@') !== -1){
     campo.style.borderBottomColor = 'green';
     campo.classList.remove('error');
